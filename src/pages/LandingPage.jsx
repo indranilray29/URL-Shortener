@@ -1,8 +1,66 @@
-import React from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import React, { useState } from 'react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { useNavigate } from 'react-router-dom'
+
 
 const LandingPage = () => {
+
+  const [longUrl, setLongUrl] = useState();
+  const navigate = useNavigate();
+
+  const handleShorten = (e) => {
+    e.preventDefault();
+    if(longUrl)
+      navigate(`/auth?createNew=${longUrl}`)
+  }
+
   return (
-    <div>LandingPage</div>
+    <div className='flex flex-col items-center'>
+      <h2 className='my-10 sm:my-16 text-3xl sm:text-6xl lg:text-7xl text-white text-center font-extrabold'>
+        The awesome URL Shortener for you along with all the features you&rsquo;ll ever need !
+      </h2>
+      <form onSubmit={ handleShorten } className='sm:h-14 flex flex-col sm:flex-row w-full md:w-2/4 gap-2'>
+        {/* <Input className="border-2 border-white"/> */}
+        <Input 
+          type="url" 
+          value={longUrl}
+          placeholder="Enter your long url"  
+          onChange={ (e) => setLongUrl(e.target.value)} 
+          className="h-full flex-1 py-4" 
+        />
+        <Button className="h-full" type="submit" variant="destructive" >Shorten👈</Button>
+      </form>
+      <img src='/src/assets/banner.png' alt='' className='w-full my-11 md:px-11' />
+
+      <Accordion type="multiple" collapsible className='w-full md:px-11'>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionContent>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionContent>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3">
+          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionContent>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+    </div>
   )
 }
 
